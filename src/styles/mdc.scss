@@ -1,0 +1,96 @@
+@use "@material/theme" with (
+  $primary: #4b4b4b,
+  $secondary: #f6a821,
+  $on-primary: #ffffff,
+  $on-secondary: #ffffff,
+);
+//@use '@material/button/mdc-button';
+//@use '@material/button';
+
+//@use '@material/card/mdc-card';
+//@use '@material/card';
+
+//@use '@material/checkbox';
+
+//@use '@material/data-table';
+//@use '@material/data-table/mdc-data-table';
+
+//@use '@material/dialog/mdc-dialog';
+//@use '@material/dialog';
+
+@use '@material/drawer/mdc-drawer';
+@use '@material/drawer';
+
+//@use '@material/elevation/mdc-elevation';
+
+@use '@material/icon-button';
+@use '@material/icon-button/mdc-icon-button';
+
+@use "@material/layout-grid/mdc-layout-grid";
+@use "@aurelia-mdc-web/layout-grid";
+
+//@use "@aurelia-mdc-web/expandable";
+
+//@use '@material/linear-progress/mdc-linear-progress';
+//@use '@material/linear-progress';
+
+@use '@material/list/mdc-list';
+@use '@material/list';
+
+//@use '@material/textfield/mdc-text-field';
+//@use '@material/textfield';
+
+//@use '@material/switch/mdc-switch';
+//@use '@material/switch';
+
+//@use '@material/form-field/mdc-form-field';
+//@use '@material/form-field/_index' as form-field;
+
+@use '@material/ripple/mdc-ripple';
+@use '@material/ripple';
+
+//@use '@material/menu/mdc-menu';
+//@use '@material/menu';
+//@use '@material/menu-surface/mdc-menu-surface';
+
+//@use '@material/select/mdc-select';
+//@use '@material/select/_index' as select;
+
+//@use '@material/radio/mdc-radio';
+//@use '@material/radio';
+
+//@use '@material/tab-bar/mdc-tab-bar';
+//@use '@material/tab-bar';
+
+//@use '@material/tab-scroller/mdc-tab-scroller';
+//@use '@material/tab-scroller';
+
+//@use '@material/tab-indicator/mdc-tab-indicator';
+//@use '@material/tab-indicator';
+
+//@use '@material/tab/mdc-tab';
+//@use '@material/tab';
+
+@use '@material/top-app-bar/mdc-top-app-bar';
+@use '@material/top-app-bar';
+
+@use '@material/typography/mdc-typography';
+@use '@material/typography';
+
+//@use '@material/chips/mdc-chips';
+//@use '@aurelia-mdc-web/chips';
+
+@include drawer.core-styles;
+@include drawer.dismissible-core-styles;
+@include drawer.modal-core-styles;
+@include list.core-styles;
+
+//adapt router view size to drawer because it doesn't do that on it's own for some reason
+mdc-drawer-app-content {
+    width:100vw;
+    display: flex;
+    flex: 0 1 auto;
+    box-sizing: content-box;
+    padding: 1.5rem 2rem;
+    background-color: #f5f5f5;
+}
