@@ -1,12 +1,11 @@
-import {autoinject, PLATFORM} from "aurelia-framework";
-import {NavModel, Router, RouterConfiguration} from 'aurelia-router';
-import {MdcDrawer} from "@aurelia-mdc-web/drawer";
-import "./app.scss"
+import { autoinject, PLATFORM } from "aurelia-framework";
+import { NavModel, Router, RouterConfiguration } from 'aurelia-router';
+import { MdcDrawer } from "@aurelia-mdc-web/drawer";
 
 @autoinject()
 export class App {
     private _router: Router;
-    private _drawer:MdcDrawer;
+    private _drawer: MdcDrawer;
     private _routeConfig: RouterConfiguration;
 
     constructor() {
@@ -30,7 +29,7 @@ export class App {
         ]);
     }
 
-    navigateTo(nav:NavModel|string) {
+    navigateTo(nav: NavModel | string) {
         if (nav instanceof NavModel) {
             this._router.navigate(nav.href);
         } else {

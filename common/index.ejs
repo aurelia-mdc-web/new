@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="assets/favicon_16x16.png" sizes="16x16">
-    <title><%- htmlWebpackPlugin.options.metadata.title %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="<%- htmlWebpackPlugin.options.metadata.baseUrl %>">
-  </head>
-  <body aurelia-app="main">
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="assets/favicon_16x16.png" sizes="16x16">
+  <title>
+    <%- htmlWebpackPlugin.options.metadata.title %>
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <base href="<%- htmlWebpackPlugin.options.metadata.baseUrl %>">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body class="mdc-typography">
+  <div aurelia-app="main"></div>
+</body>
+
 </html>

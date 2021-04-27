@@ -3,9 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const {AureliaPlugin} = require('aurelia-webpack-plugin');
-const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { AureliaPlugin } = require('aurelia-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 // config helpers:
@@ -19,7 +19,10 @@ const srcDir = path.resolve(__dirname, 'src');
 const nodeModulesDir = path.resolve(__dirname, 'node_modules');
 const baseUrl = '';
 
-module.exports = ({production} = {}, {analyze, tests, hmr, port, host} = {}) => {
+const cssLoaders = [{ loader: 'css-loader', options: { esModule: false } }];
+const scssLoaders = [...cssLoaders, { loader: 'sass-loader', options: { sassOptions: { includePaths: [nodeModulesDir] } } }];
+
+module.exports = ({ production } = {}, { analyze, tests, hmr, port, host } = {}) => {
 
     const outDir = path.resolve(__dirname, "dist");
 
@@ -91,57 +94,22 @@ module.exports = ({production} = {}, {analyze, tests, hmr, port, host} = {}) => 
         devtool: production ? false : 'cheap-module-eval-source-map',
         module: {
             rules: [
-                {
-                    test: /\.html$/i,
-                    loader: 'html-loader'
-                },
-                {
-                    test: /\.ts$/,
-                    loader: "ts-loader",
-                    options: {
-                        allowTsInNodeModules: true
-                    }
-                },
+                { test: /\.html$/i, loader: 'html-loader' },
+                { test: /\.ts$/, loader: "ts-loader", options: { allowTsInNodeModules: true } },
                 /**
                  * Import images from source code
                  * @see https://stackoverflow.com/questions/43638454/webpack-typescript-image-import
                  */
-                {
-                    test: /\.(jpg|png)$/,
-                    use: {
-                        loader: 'file-loader'
-                    },
-                },
-                {
-                    test: /\.css$/,
-                    issuer: /\.ts?$/i,
-                    use: [
-                        {loader: MiniCssExtractPlugin.loader},
-                        "css-loader"
-                    ],
-                },
-                {
-                    test: /\.scss$/,
-                    issuer: /\.ts?$/i,
-                    use: [
-                        {loader: MiniCssExtractPlugin.loader},
-                        {loader: 'css-loader'},
-                        {
-                            loader: 'sass-loader', options: {
-                                //implementation: require('sass'),
-                                sassOptions: {
-                                    includePaths: [nodeModulesDir]
-                                }
-                            }
-                        },
-                    ],
-                },
+                { test: /\.(jpg|png)$/, use: { loader: 'file-loader' } },
+                { test: /\.css$/, issuer: /\.html?$/i, use: cssLoaders },
+                { test: /\.css$/, issuer: [{ not: [{ test: /\.html$/i }] }], use: [{ loader: MiniCssExtractPlugin.loader }, ...cssLoaders] },
+                { test: /\.scss$/i, issuer: /\.html?$/i, use: scssLoaders },
+                { test: /\.scss$/, issuer: [{ not: [{ test: /\.html$/i }] }], use: [{ loader: MiniCssExtractPlugin.loader }, ...scssLoaders] }
             ]
         },
         plugins: [
-            //...when(!tests, new DuplicatePackageCheckerPlugin()),
             new AureliaPlugin(),
-            ...when(production,  new webpack.NormalModuleReplacementPlugin(/config-dev/gi, (resource) => {
+            ...when(production, new webpack.NormalModuleReplacementPlugin(/config-dev/gi, (resource) => {
                 resource.request = resource.request.replace(/config-dev/, 'config-prod');
             })),
             new HtmlWebpackPlugin({
@@ -156,7 +124,7 @@ module.exports = ({production} = {}, {analyze, tests, hmr, port, host} = {}) => 
                 chunkFilename: production ? 'css/[name].[contenthash].chunk.css' : 'css/[name].[hash].chunk.css'
             }),
             ...when(!tests, new CopyWebpackPlugin([
-                {from: 'static', to: outDir, ignore: ['.*']}])), // ignore dot (hidden) files
+                { from: 'static', to: outDir, ignore: ['.*'] }])), // ignore dot (hidden) files
             ...when(analyze, new BundleAnalyzerPlugin()),
             /**
              * Note that the usage of following plugin cleans the webpack output directory before build.

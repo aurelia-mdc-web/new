@@ -1,14 +1,21 @@
-<template>
-    <mdc-layout-grid mdc-body1>
+<template class="dashboard">
+    <require from="./dashboard.scss"></require>
+    <mdc-layout-grid mdc-body1 class="dashboard">
         <mdc-layout-grid-inner>
             <mdc-layout-grid-cell span="4">
-                One
+                <mdc-card>
+                    <mdc-card-primary-action>One</mdc-card-primary-action>
+                </mdc-card>
             </mdc-layout-grid-cell>
             <mdc-layout-grid-cell span="4">
-                Two
+                <mdc-card>
+                    <mdc-card-primary-action>Two</mdc-card-primary-action>
+                </mdc-card>
             </mdc-layout-grid-cell>
             <mdc-layout-grid-cell span="4">
-               Three
+                <mdc-card>
+                    <mdc-card-primary-action>Three</mdc-card-primary-action>
+                </mdc-card>
             </mdc-layout-grid-cell>
         </mdc-layout-grid-inner>
     </mdc-layout-grid>
