@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "@aurelia-mdc-web/all": "^6.0.1",
+        "@aurelia-mdc-web/all": "^6.1.0",
         "aurelia-bootstrapper": "^2.3.3",
         "aurelia-templating": "^1.10.4"
     },
@@ -12,7 +12,7 @@
         "file-loader": "^6.2.0",
         "html-webpack-plugin": "^4.5.1",
         "mini-css-extract-plugin": "^1.0.0",
-        "sass": "^1.32.11",
+        "sass": "^1.32.12",
         "sass-loader": "^10.1.1",
         "ts-loader": "^8.1.0",
         "typescript": "^4.2.4",
