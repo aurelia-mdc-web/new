@@ -2,17 +2,20 @@
 
 This repository contains a Aurelia Material application with a drawer and one sub navigation item.
 
-![](./screenshot.jpg)
+![](./screenshot.png)
 
 ## Build
 
 ### Development mode
+* Injects the `services/config-dev.ts` config
+* Starts hot reloading development server
 ```bash
 npm start
 ```
 
 ### Build release
-Generates the application into `dist`
+* Injects the `services/config-prod.ts` config
+* Generates the application into `dist`
 ```bash
 npm run build
 ```

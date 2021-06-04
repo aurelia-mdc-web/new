@@ -7,7 +7,7 @@ import {ICustomRouteConfig} from "./models/navigation";
 export class App {
     private _router: Router;
     private _drawer: MdcDrawer;
-    private _subTitle: string = "Aurelia MDC Skeleton"
+    private _subTitle: string = "Aurelia MDC Skeleton";
 
     configureRouter(config: RouterConfiguration, router: Router) {
         router.title = "My Title";
