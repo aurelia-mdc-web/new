@@ -1,15 +1,15 @@
-import { autoinject, PLATFORM } from "aurelia-framework";
-import {NavModel, RouteConfig, Router} from 'aurelia-router';
-import { MdcDrawer } from "@aurelia-mdc-web/drawer";
+import {autoinject, PLATFORM} from "aurelia-framework";
+import {NavModel, RouterConfiguration, Router} from 'aurelia-router';
+import {MdcDrawer} from "@aurelia-mdc-web/drawer";
 import {ICustomRouteConfig} from "./models/navigation";
 
 @autoinject()
 export class App {
     private _router: Router;
     private _drawer: MdcDrawer;
-    private _subTitle:string = "Aurelia MDC Skeleton"
+    private _subTitle: string = "Aurelia MDC Skeleton"
 
-    configureRouter(config: RouteConfig, router: Router) {
+    configureRouter(config: RouterConfiguration, router: Router) {
         router.title = "My Title";
         this._router = router;
         config.map([
