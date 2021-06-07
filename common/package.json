@@ -1,6 +1,6 @@
 {
     "dependencies": {
-        "@aurelia-mdc-web/all": "^6.1.0",
+        "@aurelia-mdc-web/all": "^6.1.4",
         "aurelia-bootstrapper": "^2.3.3",
         "aurelia-templating": "^1.10.4"
     },

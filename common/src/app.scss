@@ -8,3 +8,10 @@ body {
         flex-direction: column;
     }
 }
+
+.drawer-toggle-button {
+    --mdc-ripple-fg-size:28px;
+    --mdc-ripple-fg-scale:1.71429;
+    --mdc-ripple-left:10px;
+    --mdc-ripple-top:10px;
+}

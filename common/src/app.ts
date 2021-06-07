@@ -1,29 +1,26 @@
-import { autoinject, PLATFORM } from "aurelia-framework";
-import { NavModel, Router, RouterConfiguration } from 'aurelia-router';
-import { MdcDrawer } from "@aurelia-mdc-web/drawer";
+import {autoinject, PLATFORM} from "aurelia-framework";
+import {NavModel, RouterConfiguration, Router} from 'aurelia-router';
+import {MdcDrawer} from "@aurelia-mdc-web/drawer";
+import {ICustomRouteConfig} from "./models/navigation";
 
 @autoinject()
 export class App {
     private _router: Router;
     private _drawer: MdcDrawer;
-    private _routeConfig: RouterConfiguration;
-
-    constructor() {
-    }
+    private _subTitle: string = "Aurelia MDC Skeleton";
 
     configureRouter(config: RouterConfiguration, router: Router) {
         router.title = "My Title";
         this._router = router;
-        this._routeConfig = config;
         config.map([
-            {
+            <ICustomRouteConfig>{
                 route: '',
                 moduleId: PLATFORM.moduleName('components/dashboard/dashboard'),
                 nav: true,
                 name: "dashboard",
                 title: 'Dashboard',
                 settings: {
-                    count: 2
+                    count: 2,
                 }
             },
         ]);
