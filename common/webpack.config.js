@@ -95,14 +95,12 @@ module.exports = ({ production } = {}, { analyze, tests, hmr, port, host } = {})
         module: {
             rules: [
                 { test: /\.html$/i, loader: 'html-loader' },
-                { test: /\.ts$/, loader: "ts-loader", options: { allowTsInNodeModules: true } },
+                { test: /\.ts$/, loader: "ts-loader" },
                 /**
                  * Import images from source code
                  * @see https://stackoverflow.com/questions/43638454/webpack-typescript-image-import
                  */
                 { test: /\.(jpg|png)$/, use: { loader: 'file-loader' } },
-                { test: /\.css$/, issuer: /\.html?$/i, use: cssLoaders },
-                { test: /\.css$/, issuer: [{ not: [{ test: /\.html$/i }] }], use: [{ loader: MiniCssExtractPlugin.loader }, ...cssLoaders] },
                 { test: /\.scss$/i, issuer: /\.html?$/i, use: scssLoaders },
                 { test: /\.scss$/, issuer: [{ not: [{ test: /\.html$/i }] }], use: [{ loader: MiniCssExtractPlugin.loader }, ...scssLoaders] }
             ]
