@@ -49,15 +49,15 @@ module.exports = ({ production } = {}, { analyze, tests, hmr, port, host } = {})
         output: {
             path: outDir,
             publicPath: baseUrl,
-            filename: production ? '[name].[chunkhash].bundle.js' : '[name].[hash].bundle.js',
-            sourceMapFilename: production ? '[name].[chunkhash].bundle.map' : '[name].[hash].bundle.map',
-            chunkFilename: production ? '[name].[chunkhash].chunk.js' : '[name].[hash].chunk.js'
+            filename: production ? '[name].[chunkhash].bundle.js' : '[name].[fullhash].bundle.js',
+            sourceMapFilename: production ? '[name].[chunkhash].bundle.map' : '[name].[fullhash].bundle.map',
+            chunkFilename: production ? '[name].[chunkhash].chunk.js' : '[name].[fullhash].chunk.js'
         },
         optimization: {
             runtimeChunk: true,  // separates the runtime chunk, required for long term cacheability
             // moduleIds is the replacement for HashedModuleIdsPlugin and NamedModulesPlugin deprecated in https://github.com/webpack/webpack/releases/tag/v4.16.0
             // changes module id's to use hashes be based on the relative path of the module, required for long term cacheability
-            moduleIds: 'hashed',
+            moduleIds: 'deterministic',
             // Use splitChunks to breakdown the App/Aurelia bundle down into smaller chunks
             // https://webpack.js.org/plugins/split-chunks-plugin/
             splitChunks: {
@@ -81,8 +81,6 @@ module.exports = ({ production } = {}, { analyze, tests, hmr, port, host } = {})
             hints: false
         },
         devServer: {
-            contentBase: outDir,
-
             headers: {},
 
             // serve index.html for all 404 (required for push-state)
@@ -91,7 +89,7 @@ module.exports = ({ production } = {}, { analyze, tests, hmr, port, host } = {})
             port: port,
             host: host
         },
-        devtool: production ? false : 'cheap-module-eval-source-map',
+        devtool: production ? false : 'eval-cheap-module-source-map',
         module: {
             rules: [
                 { test: /\.html$/i, loader: 'html-loader' },
@@ -102,7 +100,7 @@ module.exports = ({ production } = {}, { analyze, tests, hmr, port, host } = {})
                  */
                 { test: /\.(jpg|png)$/, use: { loader: 'file-loader' } },
                 { test: /\.scss$/i, issuer: /\.html?$/i, use: scssLoaders },
-                { test: /\.scss$/, issuer: [{ not: [{ test: /\.html$/i }] }], use: [{ loader: MiniCssExtractPlugin.loader }, ...scssLoaders] }
+                { test: /\.scss$/, issuer: [{ not: /\.html$/i }], use: [{ loader: MiniCssExtractPlugin.loader }, ...scssLoaders] }
             ]
         },
         plugins: [
@@ -118,11 +116,10 @@ module.exports = ({ production } = {}, { analyze, tests, hmr, port, host } = {})
                 }
             }),
             new MiniCssExtractPlugin({ // updated to match the naming conventions for the js files
-                filename: production ? 'css/[name].[contenthash].bundle.css' : 'css/[name].[hash].bundle.css',
-                chunkFilename: production ? 'css/[name].[contenthash].chunk.css' : 'css/[name].[hash].chunk.css'
+                filename: production ? 'css/[name].[contenthash].bundle.css' : 'css/[name].[fullhash].bundle.css',
+                chunkFilename: production ? 'css/[name].[contenthash].chunk.css' : 'css/[name].[fullhash].chunk.css'
             }),
-            ...when(!tests, new CopyWebpackPlugin([
-                { from: 'static', to: outDir, ignore: ['.*'] }])), // ignore dot (hidden) files
+            ...when(!tests, new CopyWebpackPlugin({ patterns: [{ from: 'static', to: outDir }] })),
             ...when(analyze, new BundleAnalyzerPlugin()),
             /**
              * Note that the usage of following plugin cleans the webpack output directory before build.

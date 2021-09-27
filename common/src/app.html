@@ -4,11 +4,9 @@
         <mdc-top-app-bar fixed style="z-index: 7">
             <mdc-top-app-bar-row>
                 <mdc-top-app-bar-section start>
-                    <button click.delegate="_drawer.toggle()"
-                            mdc-ripple="unbounded.bind: true"
-                            class="mdc-top-app-bar__navigation-icon mdc-icon-button mdc-ripple-upgraded--unbounded mdc-ripple-upgraded drawer-toggle-button"
-                            role="button"
-                    >
+                    <button click.delegate="_drawer.toggle()" mdc-ripple="unbounded.bind: true"
+                        class="mdc-top-app-bar__navigation-icon mdc-icon-button mdc-ripple-upgraded--unbounded mdc-ripple-upgraded drawer-toggle-button"
+                        role="button">
                         <i class="material-icons">menu</i>
                     </button>
                     <mdc-top-app-bar-title>
@@ -16,27 +14,22 @@
                     </mdc-top-app-bar-title>
                 </mdc-top-app-bar-section>
                 <mdc-top-app-bar-section end>
-                    <a href="https://github.com/aurelia-mdc-web/new"
-                       title="Homepage"
-                       target="_blank"
-                       class="mdc-top-app-bar__action-item"
-                       rel="noopener"
-                       role="button"
-                       mdc-body2>1.0.0</a>
+                    <a href="https://github.com/aurelia-mdc-web/new" title="Homepage" target="_blank"
+                        class="mdc-top-app-bar__action-item" rel="noopener" role="button" mdc-body2>1.0.0</a>
                 </mdc-top-app-bar-section>
             </mdc-top-app-bar-row>
         </mdc-top-app-bar>
         <mdc-drawer view-model.ref="_drawer" type="dismissible" mdc-top-app-bar-fixed-adjust>
             <mdc-drawer-header title="${_router.title}" subtitle="${_subTitle}"></mdc-drawer-header>
             <mdc-drawer-content>
-                <mdc-list repeat.for="nav of _router.navigation" aria-orientation="vertical">
-                    <mdc-list-item click.delegate="navigateTo(nav)" class="mdc-list-item mdc-ripple-upgraded"
-                        class.bind="nav.isActive ? 'mdc-list-item--activated' : ''">
+                <mdc-deprecated-list repeat.for="nav of _router.navigation" aria-orientation="vertical">
+                    <mdc-deprecated-list-item click.delegate="navigateTo(nav)"
+                        class.bind="nav.isActive ? 'mdc-deprecated-list-item--activated' : ''">
                         <div class="mdc-list-item__ripple"></div>
                         <span class="mdc-list-item__text">${nav.title}</span>
                         <span if.bind="nav.settings.count>0">(${nav.settings.count})</span>
-                    </mdc-list-item>
-                </mdc-list>
+                    </mdc-deprecated-list-item>
+                </mdc-deprecated-list>
             </mdc-drawer-content>
         </mdc-drawer>
 
